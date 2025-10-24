@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Agustin_H2</title>
+</head>
+<body>
+    <h1>Array Practice</h1>
+    <div id="output"></div>
+  <textarea id="myTextarea" rows="1" cols="10"></textarea> 
+  <button onclick="addToArray()"> Add</button>
+   <br>
+  <input type="text" id="searchInput" placeholder="Search/Delete"><br>
+  <button onclick="searchArray()">Search</button> <button onclick="deleteFromArray()">Delete</button>
+  
+
+  <script>
+    let dataArray = [];
+
+    const get = id => document.getElementById(id); // shortcut
+
+    function addToArray() {
+      let val = get('myTextarea').value.trim();
+      if (val) {
+        dataArray.push(val);
+        get('myTextarea').value = '';
+        displayArray();
+      } else alert("Textarea cannot be empty!");
+    }
+
+    function deleteFromArray() {
+      let val = get('searchInput').value.trim();
+      let newArray = dataArray.filter(x => x !== val);
+      alert(newArray.length < dataArray.length ? `"${val}" SURE NA IDELETE MO NI??` : `"${val}" not found.`);
+      dataArray = newArray;
+      get('searchInput').value = '';
+      displayArray();
+    }
+
+    function searchArray() {
+      let val = get('searchInput').value.trim();
+      let results = dataArray
+        .map((x, i) => x.includes(val) ? `${x} (ari sa index ${i+1})` : null)
+        .filter(x => x);
+      get('output').innerHTML = results.length ? `NAKITA NA: ${results.join(', ')}` : `"${val}" not found.`;
+      get('searchInput').value = '';
+    }
+
+    function displayArray() {
+      get('output').innerHTML = dataArray.length ? `NICE MAYARA NA: ${dataArray.join(', ')}` : "WALA UNOD!!";
+    }
+
+    displayArray(); // initial call
+  </script>
+</body>
+</html>
+
